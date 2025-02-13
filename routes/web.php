@@ -17,5 +17,5 @@ use App\Http\Controllers\EmployeeController;
 Route::resource('employee', EmployeeController::class);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.app');
 });

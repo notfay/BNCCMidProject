@@ -2,42 +2,42 @@
 
 @section('content')
 
-<div>
-    <h1>Employee</h1>
-</div>
+<h1>ChipiChapa EMS</h1>
 
-@if (@session('success'))
-<div class="alert alert-success">
-    {{ @session('success')}}
-</div>
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
 @endif
 
-<table class="table table-bordered">
+<table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Age</th>
             <th>Address</th>
-            <th>Telephone Number</th>
+            <th>Phone</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($employee as $employee)
-        <tr>
-            <td>{{ $employee->id }}</td>
-            <td>{{ $employee->name }}</td>
-            <td>{{ $employee->age }}</td>
-            <td>{{ $employee->address }}</td>
-            <td>{{ $employee->phone }}</td>
-        </tr>
+        @foreach ($employees as $employee)
+            <tr>
+                <td>{{ $employee->name }}</td>
+                <td>{{ $employee->age }}</td>
+                <td>{{ $employee->address }}</td>
+                <td>{{ $employee->phone }}</td>
+                <td>
+                    <a href="{{ route('employee.edit', $employee->id) }}" class="btn btn-warning">Edit</a>
+                    <form action="{{ route('employee.destroy', $employee->id) }}" method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
         @endforeach
     </tbody>
 </table>
-
-<div>
-    <a href="{{ route('employee.create')}}" class="btn btn-primary"> Add Employee</a>
-</div>
-
 
 @endsection
